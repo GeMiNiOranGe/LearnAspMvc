@@ -1,7 +1,23 @@
+using Microsoft.AspNetCore.Mvc.Razor;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<RazorViewEngineOptions>(options => {
+    /*
+     * Add view path
+     * 
+     * Example:
+     * /Views/<Controller>/<Action>.cshtml
+     * /MyViews/<Controller>/<Action>.cshtml
+     * 
+     * {0} -> action name
+     * {1} -> controller name
+     * {2} -> area name
+     */
+    options.ViewLocationFormats.Add("/MyViews/{1}/{0}" + RazorViewEngine.ViewExtension);
+});
 
 var app = builder.Build();
 
@@ -17,6 +33,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
