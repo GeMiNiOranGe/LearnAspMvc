@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Source.Services;
 
 namespace Source.Controllers {
     public class SubHomeController : Controller {
         private readonly ILogger<SubHomeController> _logger;
+        private readonly ProductService _productServices;
 
-        public SubHomeController(ILogger<SubHomeController> logger) {
+        public SubHomeController(ILogger<SubHomeController> logger, ProductService productServices) {
             _logger = logger;
+            _productServices = productServices;
         }
 
         public string Message() {
@@ -65,6 +68,33 @@ namespace Source.Controllers {
             // return View("MyViews/SubHome/HelloMyView.cshtml", username);
             // return View("Hello", username);
             return View((object)username);
+        }
+
+        [TempData]
+        public string StatusMessage { get; set; }
+
+        public IActionResult Product(int? id) {
+            var product = _productServices
+                .Where(product => product.Id == id)
+                .FirstOrDefault();
+
+            if (product == null) {
+                //TempData["StatusMessage"] = "Product not found";
+
+                StatusMessage = "Product not found";
+                return Redirect(Url.Action("Index", "Home"));
+            }
+            // Case 1:
+            //return View(product);
+
+            // Case 2:
+            //ViewData["Product"] = product;
+            //ViewData["Title"] = product.Name;
+            //return View("ProductView");
+
+            // Case 3:
+            ViewBag.Product = product;
+            return View("ProductView1");
         }
     }
 }

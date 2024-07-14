@@ -1,0 +1,11 @@
+﻿@model Source.Models.ProductModel
+@{
+    var product = ViewData["Product"] as ProductModel;
+}
+
+<div class="card bg-black text-white">
+    <h1 class="card-header">@product.Name</h1>
+    <div class="card-body">
+        <p class="card-text">Price: @product.Price</p>
+    </div>
+</div>
