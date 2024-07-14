@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Razor;
+using Source.ExtendMethods;
 using Source.Services;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,9 @@ if (!app.Environment.IsDevelopment()) {
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+// Custom response from 400 to 599
+app.AddStatusCodePages();
 
 app.UseRouting();
 
