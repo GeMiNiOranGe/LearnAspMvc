@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Source.ExtendMethods;
 using Source.Services;
 using System.Net;
@@ -43,6 +44,17 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllerRoute(
+    name: "product",
+    pattern: "{url}/{id?}",
+    defaults: new {
+        controller = "SubHome",
+        action = "Product",
+    },
+    constraints: new {
+        url = "product-detail",
+        id = new RangeRouteConstraint(1, 4)
+    });
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
