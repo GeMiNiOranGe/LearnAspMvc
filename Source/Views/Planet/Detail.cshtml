@@ -1,0 +1,18 @@
+﻿@model Source.Models.PlanetModel
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<h1>@Model.Name</h1>
+
+<div class="card flex-row">
+    <img class="card-img w-50 h-50" src="@Model.ImageUrl" alt="@Model.Name" />
+    <div class="card-body">
+        <p class="card-text">
+            @Model.Description
+        </p>
+        <a class="card-link" onclick="history.back()">
+            Back to list of Planets
+        </a>
+    </div>
+</div>

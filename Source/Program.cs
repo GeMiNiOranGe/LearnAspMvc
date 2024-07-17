@@ -23,6 +23,7 @@ builder.Services.Configure<RazorViewEngineOptions>(options => {
     options.ViewLocationFormats.Add("/MyViews/{1}/{0}" + RazorViewEngine.ViewExtension);
 });
 builder.Services.AddSingleton<ProductService>();
+builder.Services.AddSingleton<PlanetService>();
 
 var app = builder.Build();
 
